@@ -1,25 +1,41 @@
 html {
   font-size: 62.5%;
+  font-family: sans-serif;
 }
 
 body {
   font-size: 1.8rem;
   line-height: 1.5;
+  background-color: #eee;
 }
 
 .app {
   width: 100%;
-  max-width: 1024px;
-  padding: 15px;
+  max-width: 500px;
+  margin: 15px auto;
+}
+
+.title {
+  font-size: 4rem;
+  text-align: center;
+  font-feature-settings: "c2sc";
+  font-variant: small-caps;
+  letter-spacing: .25rem;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .todos__list {
   list-style-type: none;
+  margin-top: 15px;
+  border-radius: 5px;
 }
 
 .todos__list__item {
   cursor: pointer;
   transition: 200ms;
+  padding: 2.5px 10px;
+  font-size: small;
 }
 
 .todos__list__item:hover {
@@ -32,13 +48,37 @@ body {
 
 .todos__form {
   display: flex;
-  margin-top: 30px;
+  margin: 15px 0;
+  border-radius: 5px;
 }
 
 .todos__form__input {
-  padding: 5px;
-  border: 1px solid;
-  border-radius: 5px;
+  padding: 5px 10px;
+  flex: 1;
+  border: 1px solid lightslategrey;
+  border-radius: 5px 0 0 5px;
+  background-color: #555;
+  color: white;
+}
+
+.todos__form__btn {
+  border: none;
+}
+
+.todos__list__item:nth-child(2n) {
+  background-color: darkgrey;
+}
+
+.todos__list__item:nth-child(2n+1) {
+  background-color: lightgrey;
+}
+
+.todos__list__item:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
+.todos__list__item:last-child {
+  border-radius: 0 0 5px 5px;
 }
 
 .todos__form__btn.primary {
@@ -49,4 +89,5 @@ body {
 .todos__form__btn.danger {
   background: darkred;
   color: white;
+  border-radius: 0 5px 5px 0;
 }
