@@ -1,18 +1,11 @@
-import { todosInitialState, todosReducer } from './todos';
+import todos, { initialState as todoState } from './todos';
 
 export const initialState = {
-  todos: todosInitialState
+  todos: todoState
 };
 
-export const reducer = (state, action) => {
-  switch (action.type) {
-    case 'add_todo':
-    case 'toggle_todo':
-    case 'clear_completed':
-      return {
-        todos: todosReducer(state.todos, action)
-      };
-    default:
-      return state;
-  }
-};
+const reducer = (state, action) => ({
+  todos: todos(state.todos, action)
+});
+
+export default reducer;
