@@ -1,43 +1,30 @@
-import React, { useReducer } from 'react';
-import { initialState, reducer } from './reducers';
-import useInput from './hooks/useInput';
+import React, { useCallback, useReducer } from 'react';
+import reducer, { initialState } from './reducers';
 import './App.css';
+
+import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { value, setValue, handleChange } = useInput();
 
-  const addTodo = (event) => {
-    event.preventDefault();
-    dispatch({ type: 'add_todo', payload: value });
-    setValue('');
-  };
+  const addTodo = useCallback((text) => {
+    dispatch({ type: 'add_todo', payload: text });
+  }, [dispatch]);
 
   const toggleTodo = (id) => {
     dispatch({ type: 'toggle_todo', payload: id });
   };
 
-  const clearCompleted = () => {
+  const clearCompleted = useCallback(() => {
     dispatch({ type: 'clear_completed' });
-  };
+  }, [dispatch]);
 
   return (
     <div className="app">
       <h2>Todos</h2>
-      <ul className="todos__list">
-        {state.todos.map(todo => (
-          <li key={todo.id} className={todo.completed ? 'todos__list__item complete' : 'todos__list__item'}
-              onClick={() => toggleTodo(todo.id)}>
-            {todo.task}
-          </li>
-        ))}
-      </ul>
-      <form className="todos__form" onSubmit={addTodo}>
-        <input className='todos__form__input' type="text" placeholder='I need to...' value={value}
-               onChange={handleChange} />
-        <button className='todos__form__btn primary' type='submit'>Add Todo</button>
-        <button className='todos__form__btn danger' onClick={clearCompleted}>Clear Completed</button>
-      </form>
+      <TodoList todos={state.todos} toggleTodo={toggleTodo} />
+      <TodoForm addTodo={addTodo} clearCompleted={clearCompleted} />
     </div>
   );
 }
